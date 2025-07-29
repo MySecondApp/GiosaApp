@@ -15,7 +15,7 @@ RSpec.describe 'Navigation', type: :system do
     within('nav') do
       click_link 'Posts'
     end
-    
+
     # Check we can see posts page content (even if no posts exist)
     expect(page).to have_content('Posts').or have_content('No hay posts aún')
 
@@ -23,7 +23,7 @@ RSpec.describe 'Navigation', type: :system do
     within('nav') do
       click_link 'Nuevo Post'
     end
-    
+
     # Check we're on new post page
     expect(page).to have_content('Crear post').or have_content('Nuevo Post')
 
@@ -31,7 +31,7 @@ RSpec.describe 'Navigation', type: :system do
     within('nav') do
       click_link 'Inicio'
     end
-    
+
     # Check we're back on home page
     expect(page).to have_content('Bienvenido a GiosaApp')
   end

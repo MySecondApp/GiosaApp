@@ -13,7 +13,7 @@ RSpec.describe 'Theme Toggle', type: :system do
 
     # Click theme toggle button
     find('button[type="submit"]', text: '🌙').click
-    
+
     # Wait for the page to reload and check sun icon is now visible (dark theme)
     expect(page).to have_content('Bienvenido a GiosaApp') # Ensure page has loaded
     expect(page).to have_css('button', text: '☀️')

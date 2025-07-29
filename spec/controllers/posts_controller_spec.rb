@@ -57,4 +57,3 @@ RSpec.describe PostsController, type: :controller do
 
   # Similar tests can be written for update and destroy actions.
 end
-
