@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [ :show, :edit, :update, :destroy ]
 
   def index
     @posts = Post.all.order(created_at: :desc)
@@ -14,9 +14,9 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-    
+
     if @post.save
-      redirect_to @post, notice: 'Post fue creado exitosamente.'
+      redirect_to @post, notice: "Post fue creado exitosamente."
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      redirect_to @post, notice: 'Post fue actualizado exitosamente.'
+      redirect_to @post, notice: "Post fue actualizado exitosamente."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -35,7 +35,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    redirect_to posts_path, notice: 'Post fue eliminado exitosamente.'
+    redirect_to posts_path, notice: "Post fue eliminado exitosamente."
   end
 
   private

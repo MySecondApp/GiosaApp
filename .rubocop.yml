@@ -1,8 +1,32 @@
 # Omakase Ruby styling for Rails
 inherit_gem: { rubocop-rails-omakase: rubocop.yml }
 
-# Overwrite or add rules to create your own house style
-#
-# # Use `[a, [b, c]]` not `[ a, [ b, c ] ]`
-# Layout/SpaceInsideArrayLiteralBrackets:
-#   Enabled: false
+# Custom configuration for GiosaApp
+AllCops:
+  TargetRubyVersion: 3.3
+  NewCops: enable
+  Exclude:
+    - 'bin/**/*'
+    - 'db/schema.rb'
+    - 'db/migrate/**/*'
+    - 'vendor/**/*'
+    - 'node_modules/**/*'
+    - 'tmp/**/*'
+    - 'log/**/*'
+    - 'storage/**/*'
+
+# Project-specific overrides
+Metrics/MethodLength:
+  Max: 15
+  Exclude:
+    - 'db/seeds.rb'
+    - 'config/**/*'
+
+Metrics/ClassLength:
+  Max: 120
+
+# Allow longer lines in tests
+Layout/LineLength:
+  Exclude:
+    - 'test/**/*'
+    - 'spec/**/*'

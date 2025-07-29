@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+set -e
+
+echo "🔍 Running RuboCop linter..."
+echo ""
+
+case "${1:-check}" in
+  check)
+    bundle exec rubocop
+    ;;
+  fix|auto)
+    echo "🔧 Auto-fixing issues..."
+    bundle exec rubocop -A
+    ;;
+  report)
+    echo "📊 Generating HTML report..."
+    mkdir -p tmp
+    bundle exec rubocop --format html --out tmp/rubocop_report.html
+    echo "Report generated at: tmp/rubocop_report.html"
+    ;;
+  help)
+    echo "Usage: bin/lint [command]"
+    echo ""
+    echo "Commands:"
+    echo "  check (default) - Run RuboCop to check for style violations"
+    echo "  fix|auto        - Auto-fix correctable violations"
+    echo "  report          - Generate HTML report"
+    echo "  help            - Show this help message"
+    ;;
+  *)
+    echo "Unknown command: $1"
+    echo "Run 'bin/lint help' for available commands"
+    exit 1
+    ;;
+esac
