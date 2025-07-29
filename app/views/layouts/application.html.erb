@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html class="<%= theme_classes('bg-gray-100', 'bg-gray-900') %>">
+  <head>
+    <title><%= content_for(:title) || "Giosa App" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+<body class="min-h-screen <%= theme_classes('bg-gray-100 text-black', 'bg-gray-900 text-white') %>">
+    <nav class="<%= theme_classes('bg-white border-gray-200', 'bg-gray-800 border-gray-700') %> shadow-sm border-b">
+      <div class="container mx-auto px-4 py-6">
+        <div class="flex justify-between items-center">
+          <%= link_to root_path, class: "text-2xl font-bold #{theme_classes('text-gray-800 hover:text-gray-600', 'text-white hover:text-gray-300')} transition-colors" do %>
+            GiosaApp
+          <% end %>
+          <div class="flex space-x-4 items-center">
+            <%= link_to "Inicio", root_path, class: "bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md transition-colors font-medium" %>
+            <%= link_to "Posts", posts_path, class: "bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition-colors font-medium" %>
+            <%= link_to "Nuevo Post", new_post_path, class: "bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-md transition-colors font-medium" %>
+            <%= button_to toggle_theme_path, method: :post, class: "#{theme_classes('bg-gray-100 hover:bg-gray-200 text-gray-700', 'bg-gray-600 hover:bg-gray-500 text-yellow-300')} w-12 h-12 rounded-full transition-all duration-300 border-0 flex items-center justify-center text-xl shadow-sm hover:shadow-md" do %>
+              <%= session[:dark_theme] ? "☀️" : "🌙" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </nav>
+    
+    <main class="py-8">
+      <%= yield %>
+    </main>
+  </body>
+</html>

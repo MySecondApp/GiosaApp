@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+/* Estilos personalizados para tema oscuro */
+html.bg-gray-900 {
+  background-color: rgb(17 24 39) !important;
+}
+
+body.bg-gray-900 {
+  background-color: rgb(17 24 39) !important;
+  color: rgb(255 255 255) !important;
+}
+
+/* Asegurar que todos los elementos heredan el fondo correcto */
+.bg-gray-900 {
+  background-color: rgb(17 24 39) !important;
+}
+
+.bg-gray-800 {
+  background-color: rgb(31 41 55) !important;
+}
+
+.text-white {
+  color: rgb(255 255 255) !important;
+}

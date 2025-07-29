@@ -1,0 +1,41 @@
+<div class="container mx-auto px-4 py-8">
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-4xl font-bold <%= theme_classes('text-gray-800', 'text-white') %>">Posts</h1>
+    <div class="space-x-4">
+      <%= link_to "Volver al Inicio", root_path, class: "bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md transition-colors" %>
+      <%= link_to "Nuevo Post", new_post_path, class: "bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md transition-colors" %>
+    </div>
+  </div>
+
+  <% if @posts.any? %>
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <% @posts.each do |post| %>
+        <div class="<%= theme_classes('bg-white', 'bg-gray-800') %> rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+          <h2 class="text-xl font-semibold mb-2 <%= theme_classes('text-gray-800', 'text-white') %>"><%= post.title %></h2>
+          <p class="<%= theme_classes('text-gray-600', 'text-gray-300') %> mb-4 line-clamp-3"><%= truncate(post.content, length: 100) %></p>
+          
+          <div class="flex items-center justify-between">
+            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium <%= post.published? ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' %>">
+              <%= post.published? ? 'Publicado' : 'Borrador' %>
+            </span>
+            
+            <div class="space-x-2">
+              <%= link_to "Ver", post, class: "text-blue-500 hover:text-blue-700 text-sm font-medium" %>
+              <%= link_to "Editar", edit_post_path(post), class: "text-green-500 hover:text-green-700 text-sm font-medium" %>
+              <%= link_to "Eliminar", post, method: :delete, 
+                          data: { confirm: '¿Estás seguro?' }, 
+                          class: "text-red-500 hover:text-red-700 text-sm font-medium" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="text-center py-12">
+      <div class="<%= theme_classes('text-gray-400', 'text-gray-500') %> text-6xl mb-4">📝</div>
+      <h2 class="text-2xl font-semibold <%= theme_classes('text-gray-600', 'text-gray-300') %> mb-2">No hay posts aún</h2>
+      <p class="<%= theme_classes('text-gray-500', 'text-gray-400') %> mb-6">¡Crea tu primer post para comenzar!</p>
+      <%= link_to "Crear Primer Post", new_post_path, class: "bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-md transition-colors font-semibold" %>
+    </div>
+  <% end %>
+</div>
