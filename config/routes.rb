@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   post "toggle_locale", to: "locale#toggle", as: "toggle_locale"
   post "set_locale/:locale", to: "locale#set", as: "set_locale"
   resources :posts do
-    resources :comments, only: [:create, :destroy]
+    resources :comments, only: [ :create, :destroy ]
   end
   get "home/index"
   root "home#index"
