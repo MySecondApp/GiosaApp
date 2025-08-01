@@ -1,10 +1,10 @@
 <div class="container mx-auto px-4 py-8">
   <div class="text-center mb-12">
-    <h1 class="text-5xl font-bold <%= theme_classes('text-gray-800', 'text-white') %> mb-4">Bienvenido a GiosaApp</h1>
-    <p class="text-xl <%= theme_classes('text-gray-600', 'text-gray-300') %> mb-6">Una aplicación Ruby on Rails con Stimulus y Tailwind CSS</p>
+    <h1 class="text-5xl font-bold <%= theme_classes('text-gray-800', 'text-white') %> mb-4"><%= t('home.welcome') %></h1>
+    <p class="text-xl <%= theme_classes('text-gray-600', 'text-gray-300') %> mb-6"><%= t('home.description') %></p>
     <div class="flex justify-center space-x-4">
-      <%= link_to "Ver Posts", posts_path, class: "bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-3 rounded-md transition-colors font-semibold" %>
-      <%= link_to "Crear Post", new_post_path, class: "bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-md transition-colors font-semibold" %>
+      <%= link_to t('home.view_all'), posts_path, class: "bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-3 rounded-md transition-colors font-semibold" %>
+      <%= link_to t('navigation.new_post'), new_post_path, class: "bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-md transition-colors font-semibold" %>
     </div>
   </div>
 

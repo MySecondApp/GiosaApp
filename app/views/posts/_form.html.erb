@@ -1,12 +1,12 @@
 <%= form_with(model: post, local: true, class: "space-y-6") do |form| %>
   <% if post.errors.any? %>
-    <div class="bg-red-50 border border-red-200 rounded-md p-4">
+    <div class="<%= theme_classes('bg-red-50 border-red-200', 'bg-red-900/20 border-red-700') %> border rounded-md p-4">
       <div class="flex">
         <div class="ml-3">
-          <h3 class="text-sm font-medium text-red-800">
-            <%= pluralize(post.errors.count, "error") %> prohibieron que este post sea guardado:
+          <h3 class="text-sm font-medium <%= theme_classes('text-red-800', 'text-red-200') %>">
+            <%= pluralize(post.errors.count, "error") %> <%= t('posts.form.errors.prohibited') %>
           </h3>
-          <div class="mt-2 text-sm text-red-700">
+          <div class="mt-2 text-sm <%= theme_classes('text-red-700', 'text-red-300') %>">
             <ul class="list-disc pl-5 space-y-1">
               <% post.errors.full_messages.each do |message| %>
                 <li><%= message %></li>
@@ -19,22 +19,27 @@
   <% end %>
 
   <div>
-    <%= form.label :title, "Título", class: "block text-sm font-medium text-gray-700 mb-2" %>
-    <%= form.text_field :title, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-3 py-2 border" %>
+    <%= form.label :title, t('posts.form.title_label'), class: "block text-sm font-medium #{theme_classes('text-gray-700', 'text-gray-300')} mb-2" %>
+    <%= form.text_field :title, 
+                        placeholder: t('posts.form.title_placeholder'),
+                        class: "block w-full rounded-md #{theme_classes('border-gray-300 bg-white text-gray-900 placeholder-gray-500', 'border-gray-600 bg-gray-700 text-white placeholder-gray-400')} shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-3 py-2 border" %>
   </div>
 
   <div>
-    <%= form.label :content, "Contenido", class: "block text-sm font-medium text-gray-700 mb-2" %>
-    <%= form.text_area :content, rows: 8, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-3 py-2 border" %>
+    <%= form.label :content, t('posts.form.content_label'), class: "block text-sm font-medium #{theme_classes('text-gray-700', 'text-gray-300')} mb-2" %>
+    <%= form.text_area :content, 
+                       rows: 8, 
+                       placeholder: t('posts.form.content_placeholder'),
+                       class: "block w-full rounded-md #{theme_classes('border-gray-300 bg-white text-gray-900 placeholder-gray-500', 'border-gray-600 bg-gray-700 text-white placeholder-gray-400')} shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-3 py-2 border resize-vertical" %>
   </div>
 
   <div class="flex items-center">
-    <%= form.check_box :published, class: "h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" %>
-    <%= form.label :published, "Publicado", class: "ml-2 block text-sm text-gray-900" %>
+    <%= form.check_box :published, class: "h-4 w-4 text-indigo-600 focus:ring-indigo-500 #{theme_classes('border-gray-300', 'border-gray-600')} rounded" %>
+    <%= form.label :published, t('posts.form.published_label'), class: "ml-2 block text-sm #{theme_classes('text-gray-900', 'text-gray-100')}" %>
   </div>
 
   <div class="flex justify-end space-x-4">
-    <%= link_to "Cancelar", posts_path, class: "bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md transition-colors" %>
-    <%= form.submit post.persisted? ? "Actualizar Post" : "Crear Post", class: "bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-md transition-colors" %>
+    <%= link_to t('posts.form.cancel'), posts_path, class: "bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md transition-colors" %>
+    <%= form.submit post.persisted? ? t('posts.form.update') : t('posts.form.create'), class: "bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-md transition-colors" %>
   </div>
 <% end %>

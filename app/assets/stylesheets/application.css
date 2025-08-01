@@ -8,3 +8,47 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+/* Estilos para comentarios que se adaptan al tema */
+
+/* Tema claro (por defecto) */
+.comment-item {
+  @apply bg-gray-50;
+}
+
+.comment-author-name {
+  @apply text-gray-800;
+}
+
+.comment-date {
+  @apply text-gray-500;
+}
+
+.comment-content {
+  @apply text-gray-700;
+}
+
+.comments-count {
+  @apply text-lg font-normal text-gray-600;
+}
+
+/* Tema oscuro */
+.bg-gray-900 .comment-item {
+  @apply bg-gray-700;
+}
+
+.bg-gray-900 .comment-author-name {
+  @apply text-white;
+}
+
+.bg-gray-900 .comment-date {
+  @apply text-gray-400;
+}
+
+.bg-gray-900 .comment-content {
+  @apply text-gray-300;
+}
+
+.bg-gray-900 .comments-count {
+  @apply text-gray-400;
+}

@@ -16,7 +16,7 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
 
     if @post.save
-      redirect_to @post, notice: "Post fue creado exitosamente."
+      redirect_to @post, notice: t('messages.post_created')
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      redirect_to @post, notice: "Post fue actualizado exitosamente."
+      redirect_to @post, notice: t('messages.post_updated')
     else
       render :edit, status: :unprocessable_entity
     end
@@ -35,7 +35,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    redirect_to posts_path, notice: "Post fue eliminado exitosamente."
+    redirect_to posts_path, notice: t('messages.post_deleted')
   end
 
   private

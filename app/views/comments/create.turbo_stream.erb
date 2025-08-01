@@ -1,0 +1,2 @@
+<%# El comentario se agrega automáticamente via broadcast del modelo %>
+<%= turbo_stream.replace "comment_form", partial: "comments/form", locals: { post: @post, comment: Comment.new } %>

@@ -1,0 +1,16 @@
+<div id="comment_form" class="<%= theme_classes('bg-yellow-50 border-yellow-200', 'bg-yellow-900/20 border-yellow-700') %> border rounded-lg p-6 text-center">
+  <div class="flex items-center justify-center mb-4">
+    <svg class="w-8 h-8 <%= theme_classes('text-yellow-600', 'text-yellow-400') %> mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.728-.833-2.498 0L4.316 16c-.77.833.192 2.5 1.732 2.5z"></path>
+    </svg>
+    <h3 class="text-lg font-semibold <%= theme_classes('text-yellow-800', 'text-yellow-200') %>">
+      <%= t('comments.draft_message.title') %>
+    </h3>
+  </div>
+  <p class="<%= theme_classes('text-yellow-700', 'text-yellow-300') %> mb-4">
+    <%= t('comments.draft_message.description') %>
+  </p>
+  <p class="<%= theme_classes('text-yellow-600', 'text-yellow-400') %> text-sm">
+    <%= t('comments.draft_message.explanation') %>
+  </p>
+</div>
