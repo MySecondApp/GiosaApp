@@ -1,0 +1,73 @@
+<% form_bg = theme_classes('bg-white', 'bg-gray-800') %>
+<% title_color = theme_classes('text-gray-800', 'text-white') %>
+
+<%= form_with model: [post, comment], 
+              id: "comment_form",
+              data: { 
+                turbo: true, 
+                controller: "comment-form", 
+                action: "turbo:submit-end->comment-form#reset submit->comment-form#validateForm" 
+              },
+              class: "space-y-4 #{form_bg} rounded-lg shadow-md p-6" do |form| %>
+  
+  <h3 class="text-lg font-semibold #{title_color} mb-4"><%= t('comments.form.title', default: 'Add Comment') %></h3>
+  
+  <% if comment.errors.any? %>
+    <% error_bg = theme_classes('bg-red-50 border-red-200', 'bg-red-900 border-red-700') %>
+    <% error_title = theme_classes('text-red-800', 'text-red-200') %>
+    <% error_text = theme_classes('text-red-700', 'text-red-300') %>
+    
+    <div class="#{error_bg} border rounded-md p-4 mb-4">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <div class="ml-3">
+          <h3 class="text-sm font-medium #{error_title}">Hay errores en el formulario:</h3>
+          <ul class="mt-2 text-sm #{error_text} list-disc list-inside">
+            <% comment.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <% label_classes = "block text-sm font-medium #{theme_classes('text-gray-700', 'text-gray-300')} mb-2" %>
+  <% input_classes = "w-full px-3 py-2 border #{theme_classes('border-gray-300 bg-white text-gray-900', 'border-gray-600 bg-gray-700 text-white')} rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+  <% textarea_classes = "#{input_classes} resize-none" %>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div>
+      <%= form.label :author_name, t('comments.form.author_name_label'), class: label_classes %>
+      <%= form.text_field :author_name, 
+                          placeholder: t('comments.form.author_name_placeholder'), 
+                          data: { comment_form_target: "authorName" },
+                          class: input_classes %>
+    </div>
+  </div>
+  
+  <div>
+    <%= form.label :content, t('comments.form.content_label'), class: label_classes %>
+    <%= form.text_area :content, 
+                       rows: 4,
+                       placeholder: t('comments.form.content_placeholder'), 
+                       data: { 
+                         comment_form_target: "content",
+                         action: "input->comment-form#autoResize input->comment-form#updateCharCount"
+                       },
+                       class: textarea_classes %>
+  </div>
+  
+  <div class="flex justify-end">
+    <%= form.submit t('comments.form.submit'), 
+                    class: "bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2",
+                    data: { 
+                      disable_with: t('comments.form.submitting', default: 'Submitting...'),
+                      comment_form_target: "submitButton"
+                    } %>
+  </div>
+<% end %>

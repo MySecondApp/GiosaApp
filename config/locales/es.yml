@@ -1,0 +1,91 @@
+es:
+  # Navegación
+  navigation:
+    home: "Inicio"
+    posts: "Posts"
+    new_post: "Nuevo Post"
+    
+  # Posts
+  posts:
+    index:
+      title: "Todos los Posts"
+      no_posts: "No hay posts disponibles"
+      create_first: "¡Crea el primer post!"
+    show:
+      published: "Publicado"
+      draft: "Borrador"
+      created_on: "Creado el"
+      edit: "Editar"
+      delete: "Eliminar"
+      view: "Ver"
+      back_to_posts: "← Volver a Posts"
+      home: "Inicio"
+      confirm_delete: "¿Estás seguro?"
+    new:
+      title: "Crear Nuevo Post"
+      description: "Completa el formulario para crear un nuevo post"
+    edit:
+      title: "Editar Post"
+      description: "Modifica la información del post"
+      view_post: "Ver Post"
+    form:
+      title_label: "Título"
+      title_placeholder: "Ingresa el título del post..."
+      content_label: "Contenido"
+      content_placeholder: "Escribe el contenido de tu post aquí..."
+      published_label: "Publicado"
+      cancel: "Cancelar"
+      create: "Crear Post"
+      update: "Actualizar Post"
+      errors:
+        prohibited: "prohibieron que este post sea guardado:"
+        
+  # Comentarios
+  comments:
+    title: "Comentarios"
+    no_comments: "No hay comentarios aún"
+    be_first: "¡Sé el primero en comentar!"
+    available_when_published: "Los comentarios estarán disponibles cuando se publique el post"
+    form:
+      title: "Agregar Comentario"
+      author_name_label: "Tu nombre"
+      author_name_placeholder: "Ingresa tu nombre..."
+      content_label: "Comentario"
+      content_placeholder: "Escribe tu comentario aquí..."
+      submit: "Publicar Comentario"
+      submitting: "Publicando..."
+    draft_message:
+      title: "Comentarios no disponibles"
+      description: "No se pueden agregar comentarios a este post porque está en borrador."
+      explanation: "El autor debe publicar el post antes de permitir comentarios."
+      
+  # Home
+  home:
+    welcome: "¡Bienvenido a GiosaApp!"
+    description: "Una aplicación de blog construida con Ruby on Rails"
+    recent_posts: "Posts Recientes"
+    view_all: "Ver Posts"
+    
+  # Temas y idiomas
+  theme:
+    toggle: "Cambiar tema"
+    
+  locale:
+    toggle: "Cambiar idioma"
+    spanish: "Español"
+    english: "English"
+    
+  # Mensajes del sistema
+  messages:
+    post_created: "Post fue creado exitosamente."
+    post_updated: "Post fue actualizado exitosamente."
+    post_deleted: "Post fue eliminado exitosamente."
+    comment_created: "Comentario fue creado exitosamente."
+    comment_deleted: "Comentario fue eliminado exitosamente."
+    comment_error: "Error al crear el comentario"
+    draft_comment_error: "No se pueden agregar comentarios a posts en borrador"
+    
+  # Fechas
+  date:
+    formats:
+      long: "%d de %B, %Y"

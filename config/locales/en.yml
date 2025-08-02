@@ -28,4 +28,93 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  # Navigation
+  navigation:
+    home: "Home"
+    posts: "Posts"
+    new_post: "New Post"
+    
+  # Posts
+  posts:
+    index:
+      title: "All Posts"
+      no_posts: "No posts available"
+      create_first: "Create the first post!"
+    show:
+      published: "Published"
+      draft: "Draft"
+      created_on: "Created on"
+      edit: "Edit"
+      delete: "Delete"
+      view: "View"
+      back_to_posts: "← Back to Posts"
+      home: "Home"
+      confirm_delete: "Are you sure?"
+    new:
+      title: "Create New Post"
+      description: "Complete the form to create a new post"
+    edit:
+      title: "Edit Post"
+      description: "Modify the post information"
+      view_post: "View Post"
+    form:
+      title_label: "Title"
+      title_placeholder: "Enter the post title..."
+      content_label: "Content"
+      content_placeholder: "Write your post content here..."
+      published_label: "Published"
+      cancel: "Cancel"
+      create: "Create Post"
+      update: "Update Post"
+      errors:
+        prohibited: "prohibited this post from being saved:"
+        
+  # Comments
+  comments:
+    title: "Comments"
+    no_comments: "No comments yet"
+    be_first: "Be the first to comment!"
+    available_when_published: "Comments will be available when the post is published"
+    form:
+      title: "Add Comment"
+      author_name_label: "Your name"
+      author_name_placeholder: "Enter your name..."
+      content_label: "Comment"
+      content_placeholder: "Write your comment here..."
+      submit: "Post Comment"
+      submitting: "Submitting..."
+    draft_message:
+      title: "Comments not available"
+      description: "Comments cannot be added to this post because it's in draft."
+      explanation: "The author must publish the post before allowing comments."
+      
+  # Home
+  home:
+    welcome: "Welcome to GiosaApp!"
+    description: "A blog application built with Ruby on Rails"
+    recent_posts: "Recent Posts"
+    view_all: "View Posts"
+    
+  # Themes and languages
+  theme:
+    toggle: "Toggle theme"
+    
+  locale:
+    toggle: "Change language"
+    spanish: "Español"
+    english: "English"
+    
+  # System messages
+  messages:
+    post_created: "Post was successfully created."
+    post_updated: "Post was successfully updated."
+    post_deleted: "Post was successfully deleted."
+    comment_created: "Comment was successfully created."
+    comment_deleted: "Comment was successfully deleted."
+    comment_error: "Error creating comment"
+    draft_comment_error: "Comments cannot be added to draft posts"
+    
+  # Dates
+  date:
+    formats:
+      long: "%B %d, %Y"
