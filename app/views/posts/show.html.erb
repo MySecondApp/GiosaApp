@@ -15,11 +15,14 @@
             </span>
           </div>
         </div>
-        <div class="space-x-2">
+        <div class="flex space-x-2">
           <%= link_to t('posts.show.edit'), edit_post_path(@post), class: "bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition-colors" %>
-          <%= link_to t('posts.show.delete'), @post, method: :delete,
-                      data: { confirm: t('posts.show.confirm_delete') },
-                      class: "bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition-colors" %>
+          <%= button_to t('posts.show.delete'), @post, method: :delete,
+                        data: { 
+                          confirm: t('posts.show.confirm_delete'),
+                          turbo_method: :delete 
+                        },
+                        class: "bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition-colors border-0 cursor-pointer" %>
         </div>
       </div>
     </div>

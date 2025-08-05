@@ -19,12 +19,15 @@
               <%= post.published? ? t('posts.show.published') : t('posts.show.draft') %>
             </span>
             
-            <div class="space-x-2">
+            <div class="flex flex-wrap gap-2">
               <%= link_to t('posts.show.view'), post, class: "text-blue-500 hover:text-blue-700 text-sm font-medium" %>
               <%= link_to t('posts.show.edit'), edit_post_path(post), class: "text-green-500 hover:text-green-700 text-sm font-medium" %>
-              <%= link_to t('posts.show.delete'), post, method: :delete, 
-                          data: { confirm: t('posts.show.confirm_delete') }, 
-                          class: "text-red-500 hover:text-red-700 text-sm font-medium" %>
+              <%= button_to t('posts.show.delete'), post, method: :delete, 
+                            data: { 
+                              confirm: t('posts.show.confirm_delete'),
+                              turbo_method: :delete 
+                            }, 
+                            class: "text-red-500 hover:text-red-700 text-sm font-medium bg-transparent border-0 p-0 cursor-pointer" %>
             </div>
           </div>
         </div>
