@@ -34,8 +34,10 @@ class PostsController < ApplicationController
   end
 
   def destroy
+    post_title = @post.title
     @post.destroy
-    redirect_to posts_path, notice: t("messages.post_deleted")
+
+    redirect_to posts_path, notice: "\"#{post_title}\" #{t('messages.post_deleted')}"
   end
 
   private

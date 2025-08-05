@@ -7,7 +7,28 @@ module.exports = {
     './app/javascript/**/*.js'
   ],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        'fade-in': 'fadeIn 0.2s ease-out',
+        'scale-in': 'scaleIn 0.2s ease-out',
+        'shake': 'shake 0.5s ease-in-out',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        scaleIn: {
+          '0%': { opacity: '0', transform: 'scale(0.95)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+        shake: {
+          '0%, 100%': { transform: 'translateX(0)' },
+          '10%, 30%, 50%, 70%, 90%': { transform: 'translateX(-2px)' },
+          '20%, 40%, 60%, 80%': { transform: 'translateX(2px)' },
+        },
+      },
+    },
   },
   plugins: [],
   safelist: [
@@ -34,6 +55,21 @@ module.exports = {
     'text-blue-600',
     'text-blue-400',
     'border-blue-400',
-    'border-blue-500'
+    'border-blue-500',
+    // Modal and animation classes
+    'bg-red-100',
+    'bg-red-900/30',
+    'text-red-600',
+    'text-red-400',
+    'bg-gray-50',
+    'bg-gray-700/50',
+    'animate-fade-in',
+    'animate-scale-in',
+    'ring-gray-300',
+    'ring-gray-500',
+    'hover:bg-gray-50',
+    'hover:bg-gray-500',
+    'focus:ring-offset-white',
+    'focus:ring-offset-gray-800'
   ]
 }

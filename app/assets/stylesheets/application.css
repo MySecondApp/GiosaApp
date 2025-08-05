@@ -52,3 +52,33 @@
 .bg-gray-900 .comments-count {
   @apply text-gray-400;
 }
+
+/* Fix button_to form layout issues */
+.flex form {
+  display: inline;
+  margin: 0;
+}
+
+.flex form button {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Ensure buttons in flex containers don't wrap awkwardly */
+.flex .gap-3 form {
+  margin: 0;
+}
+
+/* Better hover states for action buttons */
+.hover\:bg-blue-50:hover {
+  background-color: rgba(59, 130, 246, 0.1);
+}
+
+.hover\:bg-green-50:hover {
+  background-color: rgba(34, 197, 94, 0.1);
+}
+
+.hover\:bg-red-50:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
