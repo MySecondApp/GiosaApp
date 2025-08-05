@@ -1,0 +1,17 @@
+<%= turbo_stream.append "body" do %>
+  <script>
+    // Disparar notificación de comentario
+    const event = new CustomEvent("notification:show", {
+      detail: {
+        message: "<%= j comment.content.truncate(100) %>",
+        type: "comment",
+        title: "💬 <%= j comment.author_name %> comentó en \"<%= j comment.post.title %>\"",
+        duration: 8000
+      }
+    });
+    window.dispatchEvent(event);
+    
+    // Remover este script después de ejecutarlo
+    document.currentScript.remove();
+  </script>
+<% end %>

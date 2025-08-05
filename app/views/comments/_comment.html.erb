@@ -1,4 +1,4 @@
-<div id="<%= dom_id(comment) %>" class="comment-item rounded-lg p-4 mb-3 border-l-4 border-blue-500">
+<div id="<%= dom_id(comment) %>" class="comment-item rounded-lg p-4 mb-3 border-l-4 border-blue-500" data-comment-id="<%= comment.id %>" data-author-name="<%= comment.author_name %>" data-comment-content="<%= comment.content %>">
   <div class="flex justify-between items-start mb-2">
     <div class="flex items-center space-x-2">
       <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">

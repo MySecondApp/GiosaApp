@@ -39,7 +39,8 @@ es:
       update: "Actualizar Post"
       errors:
         prohibited: "prohibieron que este post sea guardado:"
-        
+        messages:
+          too_short: "es demasiado corto (se esperaban %{count} caracteres)"
   # Comentarios
   comments:
     title: "Comentarios"
@@ -85,7 +86,91 @@ es:
     comment_error: "Error al crear el comentario"
     draft_comment_error: "No se pueden agregar comentarios a posts en borrador"
     
-  # Fechas
+  # ActiveRecord errores
+  activerecord:
+    models:
+      post: "Post"
+      comment: "Comentario"
+    attributes:
+      post:
+        title: "Título"
+        content: "Contenido"
+        published: "Publicado"
+      comment:
+        author_name: "Nombre del autor"
+        content: "Contenido"
+    errors:
+      messages:
+        too_short: "es demasiado corto (mínimo %{count} caracteres)"
+        blank: "no puede estar en blanco"
+      models:
+        post:
+          attributes:
+            title:
+              too_short: "debe tener al menos %{count} caracteres"
+              blank: "no puede estar vacío"
+            content:
+              too_short: "debe tener al menos %{count} caracteres"
+              blank: "no puede estar vacío"
+              
+  # Fechas y tiempo
   date:
     formats:
       long: "%d de %B, %Y"
+      default: "%d/%m/%Y"
+      short: "%d %b"
+    day_names:
+      - domingo
+      - lunes
+      - martes
+      - miércoles
+      - jueves
+      - viernes
+      - sábado
+    abbr_day_names:
+      - dom
+      - lun
+      - mar
+      - mié
+      - jue
+      - vie
+      - sáb
+    month_names:
+      - ~
+      - enero
+      - febrero
+      - marzo
+      - abril
+      - mayo
+      - junio
+      - julio
+      - agosto
+      - septiembre
+      - octubre
+      - noviembre
+      - diciembre
+    abbr_month_names:
+      - ~
+      - ene
+      - feb
+      - mar
+      - abr
+      - may
+      - jun
+      - jul
+      - ago
+      - sep
+      - oct
+      - nov
+      - dic
+    order:
+      - :day
+      - :month
+      - :year
+  time:
+    formats:
+      long: "%d de %B de %Y a las %H:%M"
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      short: "%d %b %H:%M"
+    am: "am"
+    pm: "pm"

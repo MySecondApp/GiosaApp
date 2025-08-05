@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+first_comment:
+  post: published_post
+  author_name: "María García"
+  content: "Este es el primer comentario de prueba"
+  created_at: <%= 1.hour.ago %>
+  updated_at: <%= 1.hour.ago %>
+
+second_comment:
+  post: published_post
+  author_name: "Carlos López"
+  content: "Este es el segundo comentario con más contenido para probar"
+  created_at: <%= 30.minutes.ago %>
+  updated_at: <%= 30.minutes.ago %>
