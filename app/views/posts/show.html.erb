@@ -11,14 +11,14 @@
               <%= @post.published? ? t('posts.show.published') : t('posts.show.draft') %>
             </span>
             <span class="<%= theme_classes('text-gray-500', 'text-gray-400') %> text-sm">
-              <%= t('posts.show.created_on') %> <%= I18n.l(@post.created_at, format: :long) %>
+              <%= t('posts.show.created_on') %> <%= l(@post.created_at, format: :long) %>
             </span>
           </div>
         </div>
         <div class="space-x-2">
           <%= link_to t('posts.show.edit'), edit_post_path(@post), class: "bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition-colors" %>
-          <%= link_to t('posts.show.delete'), @post, method: :delete, 
-                      data: { confirm: t('posts.show.confirm_delete') }, 
+          <%= link_to t('posts.show.delete'), @post, method: :delete,
+                      data: { confirm: t('posts.show.confirm_delete') },
                       class: "bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition-colors" %>
         </div>
       </div>

@@ -1,11 +1,15 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  title: MyString
-  content: MyText
-  published: false
+published_post:
+  title: "Published Post Title"
+  content: "Published post content with enough length."
+  published: true
+  created_at: <%= 2.days.ago %>
+  updated_at: <%= 2.days.ago %>
 
-two:
-  title: MyString
-  content: MyText
+draft_post:
+  title: "Draft Post Title"
+  content: "Draft post content with enough length."
   published: false
+  created_at: <%= 1.day.ago %>
+  updated_at: <%= 1.day.ago %>
