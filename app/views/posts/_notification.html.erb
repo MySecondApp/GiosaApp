@@ -1,7 +1,9 @@
 <script>
   // Ejecutar cuando el DOM esté listo o inmediatamente si ya está listo
   (function() {
+    console.log('🔔 Notification partial loaded with:', '<%= j(title) %>');
     function showNotification() {
+      console.log('📢 Dispatching notification event');
       const event = new CustomEvent('notification:show', {
         detail: {
           message: '<%= j(message) %>',

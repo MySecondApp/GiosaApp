@@ -44,13 +44,22 @@ class PostsController < ApplicationController
           redirect_to @post, notice: t("messages.post_updated")
         }
         format.turbo_stream {
+          Rails.logger.info "🔔 Rendering turbo stream notification for post update"
           render turbo_stream: turbo_stream.append("body") do
-            render partial: "posts/notification", locals: {
-              message: t("messages.post_updated"),
-              type: "success",
-              title: "✅ Post actualizado",
-              redirect_url: post_path(@post)
-            }
+            "<script>
+              setTimeout(function() {
+                var event = new CustomEvent('notification:show', {
+                  detail: {
+                    message: '#{j(t('messages.post_updated'))}',
+                    type: 'success',
+                    title: '✅ Post actualizado',
+                    duration: 3000
+                  }
+                });
+                window.dispatchEvent(event);
+                setTimeout(function() { window.location.href = '#{post_path(@post)}'; }, 1500);
+              }, 100);
+            </script>".html_safe
           end
         }
       end
@@ -67,12 +76,20 @@ class PostsController < ApplicationController
       format.html { redirect_to posts_path, notice: "\"#{post_title}\" #{t('messages.post_deleted')}" }
       format.turbo_stream {
         render turbo_stream: turbo_stream.append("body") do
-          render partial: "posts/notification", locals: {
-            message: "\"#{post_title}\" #{t('messages.post_deleted')}",
-            type: "success",
-            title: "🗑️ Post eliminado",
-            redirect_url: posts_path
-          }
+          "<script>
+            setTimeout(function() {
+              var event = new CustomEvent('notification:show', {
+                detail: {
+                  message: '#{j("\"#{post_title}\" #{t('messages.post_deleted')}")}',
+                  type: 'success',
+                  title: '🗑️ Post eliminado',
+                  duration: 3000
+                }
+              });
+              window.dispatchEvent(event);
+              setTimeout(function() { window.location.href = '#{posts_path}'; }, 1500);
+            }, 100);
+          </script>".html_safe
         end
       }
     end
