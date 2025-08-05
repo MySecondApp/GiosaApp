@@ -91,8 +91,16 @@ es:
     post:
       title: "¿Eliminar este post?"
       message: "Esta acción no se puede deshacer. El post y todos sus comentarios serán eliminados permanentemente."
-      confirm: "Sí, eliminar"
+      confirm: "Eliminar definitivamente"
       cancel: "Cancelar"
+    comment:
+      title: "¿Eliminar este comentario?"
+      message: "Esta acción no se puede deshacer. El comentario será eliminado permanentemente."
+      confirm: "Eliminar comentario"
+      cancel: "Cancelar"
+    loading:
+      deleting_post: "Eliminando post..."
+      deleting_comment: "Eliminando comentario..."
     
   # ActiveRecord errores
   activerecord:
