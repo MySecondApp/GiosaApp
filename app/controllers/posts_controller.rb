@@ -34,8 +34,20 @@ class PostsController < ApplicationController
   end
 
   def destroy
+    post_title = @post.title
     @post.destroy
-    redirect_to posts_path, notice: t("messages.post_deleted")
+    
+    respond_to do |format|
+      format.html { redirect_to posts_path, notice: t("messages.post_deleted") }
+      format.turbo_stream {
+        # Mostrar notificación de éxito
+        render turbo_stream: [
+          turbo_stream.update("flash_messages", partial: "shared/flash_message", 
+                             locals: { message: "\"#{post_title}\" #{t('messages.post_deleted')}", type: "success" }),
+          turbo_stream.redirect_to(posts_path)
+        ]
+      }
+    end
   end
 
   private

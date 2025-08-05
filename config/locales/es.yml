@@ -85,6 +85,14 @@ es:
     comment_deleted: "Comentario fue eliminado exitosamente."
     comment_error: "Error al crear el comentario"
     draft_comment_error: "No se pueden agregar comentarios a posts en borrador"
+  
+  # Confirmaciones de eliminación
+  delete_confirmation:
+    post:
+      title: "¿Eliminar este post?"
+      message: "Esta acción no se puede deshacer. El post y todos sus comentarios serán eliminados permanentemente."
+      confirm: "Sí, eliminar"
+      cancel: "Cancelar"
     
   # ActiveRecord errores
   activerecord:

@@ -15,14 +15,22 @@
             </span>
           </div>
         </div>
-        <div class="flex space-x-2">
+        <div class="flex space-x-2" data-controller="delete-confirmation" 
+             data-delete-confirmation-title-value="<%= t('delete_confirmation.post.title') %>"
+             data-delete-confirmation-message-value="<%= t('delete_confirmation.post.message') %>"
+             data-delete-confirmation-confirm-text-value="<%= t('delete_confirmation.post.confirm') %>"
+             data-delete-confirmation-cancel-text-value="<%= t('delete_confirmation.post.cancel') %>">
           <%= link_to t('posts.show.edit'), edit_post_path(@post), class: "bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition-colors" %>
-          <%= button_to t('posts.show.delete'), @post, method: :delete,
-                        data: { 
-                          confirm: t('posts.show.confirm_delete'),
-                          turbo_method: :delete 
-                        },
-                        class: "bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition-colors border-0 cursor-pointer" %>
+          <%= form_with model: @post, method: :delete, local: true, data: { delete_confirmation_target: "form" }, class: "inline" do |form| %>
+            <button type="button" data-action="delete-confirmation#show" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition-colors border-0 cursor-pointer">
+              <%= t('posts.show.delete') %>
+            </button>
+          <% end %>
+          <%= render "shared/delete_confirmation_modal", 
+                     title: t('delete_confirmation.post.title'),
+                     message: t('delete_confirmation.post.message'),
+                     confirm_text: t('delete_confirmation.post.confirm'),
+                     cancel_text: t('delete_confirmation.post.cancel') %>
         </div>
       </div>
     </div>
