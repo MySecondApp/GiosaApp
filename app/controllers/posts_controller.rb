@@ -47,7 +47,9 @@ class PostsController < ApplicationController
           Rails.logger.info "🔔 Rendering turbo stream notification for post update"
           render turbo_stream: turbo_stream.append("body") do
             "<script>
+              console.log('🚀 Executing post update notification script');
               setTimeout(function() {
+                console.log('📢 Dispatching notification event');
                 var event = new CustomEvent('notification:show', {
                   detail: {
                     message: '#{j(t('messages.post_updated'))}',
@@ -57,8 +59,12 @@ class PostsController < ApplicationController
                   }
                 });
                 window.dispatchEvent(event);
-                setTimeout(function() { window.location.href = '#{post_path(@post)}'; }, 1500);
-              }, 100);
+                console.log('Event dispatched:', event);
+                setTimeout(function() { 
+                  console.log('Redirecting to post...');
+                  window.location.href = '#{post_path(@post)}'; 
+                }, 2000);
+              }, 500);
             </script>".html_safe
           end
         }

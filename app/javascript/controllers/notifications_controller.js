@@ -205,4 +205,4 @@ export default class extends Controller {
 }
 
 // Hacer disponible el método estático globalmente
-window.NotificationsController = exports.default
+// window.NotificationsController = NotificationsController
