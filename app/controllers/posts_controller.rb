@@ -16,7 +16,19 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
 
     if @post.save
-      redirect_to @post, notice: t("messages.post_created")
+      respond_to do |format|
+        format.html { redirect_to @post, notice: t("messages.post_created") }
+        format.turbo_stream {
+          render turbo_stream: turbo_stream.append("body") do
+            render partial: "posts/notification", locals: {
+              message: t("messages.post_created"),
+              type: "success",
+              title: "✍️ Post creado",
+              redirect_url: post_path(@post)
+            }
+          end
+        }
+      end
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,7 +39,21 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      redirect_to @post, notice: t("messages.post_updated")
+      respond_to do |format|
+        format.html { 
+          redirect_to @post, notice: t("messages.post_updated")
+        }
+        format.turbo_stream {
+          render turbo_stream: turbo_stream.append("body") do
+            render partial: "posts/notification", locals: {
+              message: t("messages.post_updated"),
+              type: "success",
+              title: "✅ Post actualizado",
+              redirect_url: post_path(@post)
+            }
+          end
+        }
+      end
     else
       render :edit, status: :unprocessable_entity
     end
@@ -37,7 +63,19 @@ class PostsController < ApplicationController
     post_title = @post.title
     @post.destroy
 
-    redirect_to posts_path, notice: "\"#{post_title}\" #{t('messages.post_deleted')}"
+    respond_to do |format|
+      format.html { redirect_to posts_path, notice: "\"#{post_title}\" #{t('messages.post_deleted')}" }
+      format.turbo_stream {
+        render turbo_stream: turbo_stream.append("body") do
+          render partial: "posts/notification", locals: {
+            message: "\"#{post_title}\" #{t('messages.post_deleted')}",
+            type: "success",
+            title: "🗑️ Post eliminado",
+            redirect_url: posts_path
+          }
+        end
+      }
+    end
   end
 
   private

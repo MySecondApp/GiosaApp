@@ -22,5 +22,6 @@ class Post < ApplicationRecord
   end
 
   # Broadcast changes to comments for real-time updates
-  after_update_commit { broadcast_replace_to "post_#{id}", partial: "posts/post", locals: { post: self } }
+  # Temporarily disabled to allow custom notifications in controller
+  # after_update_commit { broadcast_replace_to "post_#{id}", partial: "posts/post", locals: { post: self } }
 end

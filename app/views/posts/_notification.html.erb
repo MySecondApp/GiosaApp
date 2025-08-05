@@ -1,0 +1,27 @@
+<script>
+  // Ejecutar cuando el DOM esté listo o inmediatamente si ya está listo
+  (function() {
+    function showNotification() {
+      const event = new CustomEvent('notification:show', {
+        detail: {
+          message: '<%= j(message) %>',
+          type: '<%= type %>',
+          title: '<%= j(title) %>',
+          duration: 3000
+        }
+      });
+      window.dispatchEvent(event);
+      
+      // Redirigir después de mostrar la notificación
+      <% if defined?(redirect_url) && redirect_url %>
+        setTimeout(() => window.location.href = '<%= redirect_url %>', 1500);
+      <% end %>
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', showNotification);
+    } else {
+      showNotification();
+    }
+  })();
+</script>
