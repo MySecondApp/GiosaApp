@@ -50,14 +50,20 @@ class CommentTest < ActiveSupport::TestCase
     assert_equal @post, @comment.post
   end
 
-  test "should have broadcasting callback after create" do
-    # Verificar que el modelo tiene el callback después de crear
-    assert Comment._commit_callbacks.any? { |cb| cb.kind == :after }, "Should have after_commit callbacks"
+  test "should not have automatic broadcasting callbacks" do
+    # Los callbacks automáticos están deshabilitados para mejor UX - manejados manualmente en el controlador
+    create_callbacks = Comment._commit_callbacks.select { |cb| cb.kind == :after && cb.filter.to_s.include?("create") }
+    destroy_callbacks = Comment._commit_callbacks.select { |cb| cb.kind == :after && cb.filter.to_s.include?("destroy") }
+
+    assert create_callbacks.empty?, "Should not have automatic after_create_commit callbacks"
+    assert destroy_callbacks.empty?, "Should not have automatic after_destroy_commit callbacks"
   end
 
-  test "should have broadcasting callback after destroy" do
-    # Verificar que el modelo tiene el callback después de destruir
-    assert Comment._commit_callbacks.any? { |cb| cb.kind == :after }, "Should have after_commit callbacks"
+  test "should have broadcasting methods available" do
+    # Verificar que los métodos de broadcasting están definidos (aunque sean privados)
+    assert @comment.private_methods.include?(:broadcast_replace_comments_section), "Should have broadcast_replace_comments_section method"
+    assert @comment.private_methods.include?(:broadcast_update_counter), "Should have broadcast_update_counter method"
+    assert @comment.private_methods.include?(:broadcast_comment_notification), "Should have broadcast_comment_notification method"
   end
 
   test "should create comment successfully for published post" do

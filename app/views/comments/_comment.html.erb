@@ -7,16 +7,15 @@
       <div>
         <h4 class="font-semibold comment-author-name"><%= comment.author_name %></h4>
         <p class="text-xs comment-date">
-          <%= time_ago_in_words(comment.created_at) %> atrás
+          hace <%= time_ago_in_words(comment.created_at) %>
         </p>
       </div>
     </div>
-    
-    <%= button_to post_comment_path(comment.post, comment), 
+
+    <%= button_to post_comment_path(comment.post, comment),
                   method: :delete,
-                  data: { 
-                    confirm: "¿Estás seguro de eliminar este comentario?",
-                    turbo_method: :delete
+                  data: {
+                    "turbo-confirm": "¿Estás seguro de eliminar este comentario?"
                   },
                   class: "text-red-500 hover:text-red-700 text-sm",
                   form: { data: { turbo: true } } do %>
@@ -25,7 +24,7 @@
       </svg>
     <% end %>
   </div>
-  
+
   <div class="comment-content leading-relaxed">
     <%= simple_format(comment.content, class: "mb-0") %>
   </div>

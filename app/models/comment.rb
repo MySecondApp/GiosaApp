@@ -5,18 +5,18 @@ class Comment < ApplicationRecord
   validates :content, presence: true, length: { minimum: 5 }
   validate :post_must_be_published
 
-  # Broadcast new comments in real-time
-  after_create_commit do
-    Rails.logger.info "🚀 Broadcasting comment #{id} to channel: post_#{post.id}_comments"
-    broadcast_replace_comments_section
-    broadcast_update_counter
-  end
+  # Automatic broadcasts disabled - handled manually in controller for better UX
+  # after_create_commit do
+  #   Rails.logger.info "🚀 Broadcasting comment #{id} to channel: post_#{post.id}_comments"
+  #   broadcast_replace_comments_section
+  #   broadcast_update_counter
+  # end
 
-  after_destroy_commit do
-    Rails.logger.info "🗑️ Broadcasting removal of comment to channel: post_#{post.id}_comments"
-    broadcast_replace_comments_section
-    broadcast_update_counter
-  end
+  # after_destroy_commit do
+  #   Rails.logger.info "🗑️ Broadcasting removal of comment to channel: post_#{post.id}_comments"
+  #   broadcast_replace_comments_section
+  #   broadcast_update_counter
+  # end
 
   private
 

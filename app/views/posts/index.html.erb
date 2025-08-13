@@ -7,37 +7,38 @@
     </div>
   </div>
 
-  <% if @posts.any? %>
-    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      <% @posts.each do |post| %>
-        <div class="<%= theme_classes('bg-white', 'bg-gray-800') %> rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-          <h2 class="text-xl font-semibold mb-2 <%= theme_classes('text-gray-800', 'text-white') %>"><%= post.title %></h2>
-          <p class="<%= theme_classes('text-gray-600', 'text-gray-300') %> mb-4 line-clamp-3"><%= truncate(post.content, length: 100) %></p>
-          
-          <div class="flex items-center justify-between">
-            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium <%= post.published? ? theme_classes('bg-green-100 text-green-800', 'bg-green-800 text-green-200') : theme_classes('bg-yellow-100 text-yellow-800', 'bg-yellow-800 text-yellow-200') %>">
-              <%= post.published? ? t('posts.show.published') : t('posts.show.draft') %>
-            </span>
-            
-            <div class="flex flex-wrap items-center gap-3">
-              <%= link_to t('posts.show.view'), post, class: "text-blue-500 hover:text-blue-700 text-sm font-medium px-2 py-1 rounded hover:bg-blue-50" %>
-              <%= link_to t('posts.show.edit'), edit_post_path(post), class: "text-green-500 hover:text-green-700 text-sm font-medium px-2 py-1 rounded hover:bg-green-50" %>
-              <%= button_to t('posts.show.delete'), post, method: :delete, 
-                            data: { 
-                              "turbo-confirm": t('posts.show.confirm_delete')
-                            }, 
-                            class: "text-red-500 hover:text-red-700 text-sm font-medium bg-transparent border-0 px-2 py-1 rounded hover:bg-red-50 cursor-pointer" %>
-            </div>
-          </div>
-        </div>
+  <!-- Barra de búsqueda con Hotwire -->
+  <div class="mb-8" data-controller="search" data-search-url-value="<%= posts_path %>">
+    <div class="search-container max-w-md mx-auto">
+      <div class="search-icon">
+        <svg class="h-5 w-5 <%= theme_classes('text-gray-400', 'text-gray-500') %>" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        </svg>
+      </div>
+      <input 
+        data-search-target="input"
+        data-action="input->search#search"
+        type="text" 
+        placeholder="Buscar posts..."
+        value="<%= params[:search] %>"
+        class="search-input <%= theme_classes('bg-white border-gray-300 text-gray-900 placeholder-gray-500', 'bg-gray-800 border-gray-600 text-white placeholder-gray-400') %> border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+      >
+      <% if params[:search].present? %>
+        <button 
+          data-action="click->search#clear"
+          class="clear-button text-gray-400 hover:text-gray-600 transition-colors"
+          type="button"
+        >
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
       <% end %>
     </div>
-  <% else %>
-    <div class="text-center py-12">
-      <div class="<%= theme_classes('text-gray-400', 'text-gray-500') %> text-6xl mb-4">📝</div>
-      <h2 class="text-2xl font-semibold <%= theme_classes('text-gray-600', 'text-gray-300') %> mb-2"><%= t('posts.index.no_posts') %></h2>
-      <p class="<%= theme_classes('text-gray-500', 'text-gray-400') %> mb-6"><%= t('posts.index.create_first') %></p>
-      <%= link_to t('navigation.new_post'), new_post_path, class: "bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-md transition-colors font-semibold" %>
-    </div>
-  <% end %>
+  </div>
+
+  <!-- Lista de posts con Turbo Frame para búsqueda en vivo -->
+  <div data-search-target="results">
+    <%= render "posts_list", posts: @posts %>
+  </div>
 </div>
