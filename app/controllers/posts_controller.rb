@@ -53,7 +53,7 @@ class PostsController < ApplicationController
     post_title = @post.title
     @post.destroy
 
-  respond_to do |format|
+    respond_to do |format|
       format.turbo_stream do
         render turbo_stream: [
           turbo_stream.remove("post_#{@post.id}"),
