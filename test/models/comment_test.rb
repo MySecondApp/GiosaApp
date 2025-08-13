@@ -54,6 +54,7 @@ class CommentTest < ActiveSupport::TestCase
     # Los callbacks automáticos están deshabilitados para mejor UX - manejados manualmente en el controlador
     create_callbacks = Comment._commit_callbacks.select { |cb| cb.kind == :after && cb.filter.to_s.include?("create") }
     destroy_callbacks = Comment._commit_callbacks.select { |cb| cb.kind == :after && cb.filter.to_s.include?("destroy") }
+
     assert create_callbacks.empty?, "Should not have automatic after_create_commit callbacks"
     assert destroy_callbacks.empty?, "Should not have automatic after_destroy_commit callbacks"
   end
