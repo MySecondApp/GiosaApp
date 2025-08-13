@@ -1,5 +1,5 @@
 class Post < ApplicationRecord
-  has_many :comments, -> { order(created_at: :asc) }, dependent: :destroy
+  has_many :comments, -> { order(created_at: :desc) }, dependent: :destroy
 
   validates :title, presence: true, length: { minimum: 5 }
   validates :content, presence: true, length: { minimum: 10 }

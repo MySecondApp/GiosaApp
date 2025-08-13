@@ -35,9 +35,9 @@ RSpec.describe PostsController, type: :controller do
         }.to change(Post, :count).by(1)
       end
 
-      it 'redirects to the new post' do
+      it 'redirects to posts index' do
         post :create, params: { post: attributes_for(:post) }
-        expect(response).to redirect_to(Post.last)
+        expect(response).to redirect_to(posts_path)
       end
     end
 

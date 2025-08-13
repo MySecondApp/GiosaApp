@@ -1,0 +1,37 @@
+<%# Simplified notification stream %>
+<script>
+  console.log('📬 Notification stream triggered');
+  
+  // Multiple fallback methods to ensure notification works
+  (function() {
+    const notificationData = {
+      message: <%= message.to_json %>,
+      title: <%= title.to_json %>,
+      type: <%= type.to_json %>
+    };
+    
+    console.log('🔍 Notification data:', notificationData);
+    
+    // Method 1: Try global function immediately
+    if (typeof window.showNotification === 'function') {
+      console.log('✅ Method 1: Using global showNotification function');
+      window.showNotification(notificationData.message, notificationData.title, notificationData.type);
+      return;
+    }
+    
+    // Method 2: Wait a bit for Stimulus to load
+    setTimeout(function() {
+      if (typeof window.showNotification === 'function') {
+        console.log('✅ Method 2: Using delayed global showNotification function');
+        window.showNotification(notificationData.message, notificationData.title, notificationData.type);
+        return;
+      }
+      
+      // Method 3: Dispatch custom event as final fallback
+      console.log('⚠️ Method 3: Dispatching custom event');
+      document.dispatchEvent(new CustomEvent('notification:show', {
+        detail: notificationData
+      }));
+    }, 100);
+  })();
+</script>

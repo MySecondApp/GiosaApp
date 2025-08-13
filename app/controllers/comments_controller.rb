@@ -16,8 +16,20 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        # El broadcast automático del modelo se encarga de agregar el comentario
-        format.turbo_stream { render :create }
+        format.turbo_stream {
+          # Recargar el post para obtener los comentarios actualizados
+          @post.reload
+          render turbo_stream: [
+            turbo_stream.replace("#{helpers.dom_id(@post, :comments)}", partial: "comments/comments_list", locals: { comments: @post.comments }),
+            turbo_stream.update("comments_count_#{@post.id}", partial: "comments/comments_count", locals: { post: @post }),
+            turbo_stream.replace("comment_form", partial: "comments/form", locals: { post: @post, comment: Comment.new }),
+            turbo_stream.append("body", partial: "shared/notification_stream", locals: {
+              message: t("messages.comment_created"),
+              type: "success",
+              title: "💬 Comentario agregado"
+            })
+          ]
+        }
         format.html { redirect_to @post, notice: t("messages.comment_created") }
       else
         format.turbo_stream { render turbo_stream: turbo_stream.replace("comment_form", partial: "comments/form", locals: { post: @post, comment: @comment }) }
@@ -31,7 +43,19 @@ class CommentsController < ApplicationController
     @comment.destroy
 
     respond_to do |format|
-      format.turbo_stream
+      format.turbo_stream {
+        # Recargar el post para obtener los comentarios actualizados
+        @post.reload
+        render turbo_stream: [
+          turbo_stream.replace("#{helpers.dom_id(@post, :comments)}", partial: "comments/comments_list", locals: { comments: @post.comments }),
+          turbo_stream.update("comments_count_#{@post.id}", partial: "comments/comments_count", locals: { post: @post }),
+          turbo_stream.append("body", partial: "shared/notification_stream", locals: {
+            message: t("messages.comment_deleted"),
+            type: "success",
+            title: "🗑️ Comentario eliminado"
+          })
+        ]
+      }
       format.html { redirect_to @post, notice: t("messages.comment_deleted") }
     end
   end

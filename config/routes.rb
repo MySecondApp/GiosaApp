@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   post "set_locale/:locale", to: "locale#set", as: "set_locale"
   resources :posts do
     resources :comments, only: [ :create, :destroy ]
+    member do
+      patch :like
+    end
   end
   get "home/index"
   root "home#index"

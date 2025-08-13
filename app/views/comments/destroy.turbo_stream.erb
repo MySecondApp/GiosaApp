@@ -1,1 +1,7 @@
 <%= turbo_stream.remove @comment %>
+<%= turbo_stream.update "comments_count_#{@comment.post_id}", partial: "comments/comments_count", locals: { post: @comment.post } %>
+<%= turbo_stream.append "body", partial: "shared/notification_stream", locals: {
+  message: t('messages.comment_deleted'),
+  type: "success",
+  title: "🗑️ Comentario eliminado"
+} %>

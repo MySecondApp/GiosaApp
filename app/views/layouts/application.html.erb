@@ -21,8 +21,31 @@
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-<body class="min-h-screen <%= theme_classes('bg-gray-100 text-black', 'bg-gray-900 text-white') %>" data-controller="notifications" data-action="notification:show@window->notifications#showNotification">
-    <div id="flash_messages" class="fixed top-5 right-5 z-50"></div>
+<body class="min-h-screen <%= theme_classes('bg-gray-100 text-black', 'bg-gray-900 text-white') %>" data-controller="flash-notifications">
+
+    <!-- Notificaciones flash -->
+    <% if notice %>
+      <%
+        # Determine notification type and title based on message
+        if notice.include?('creado') || notice.include?('created')
+          flash_type = 'success'
+          flash_title = '✅ Post Creado'
+        elsif notice.include?('actualizado') || notice.include?('updated')
+          flash_type = 'success'
+          flash_title = '🔄 Post Actualizado'
+        elsif notice.include?('eliminado') || notice.include?('deleted')
+          flash_type = 'success'
+          flash_title = '🗑️ Post Eliminado'
+        else
+          flash_type = 'success'
+          flash_title = '✅ Éxito'
+        end
+      %>
+      <div data-flash-notifications-message-value="<%= notice %>"
+           data-flash-notifications-type-value="<%= flash_type %>"
+           data-flash-notifications-title-value="<%= flash_title %>">
+      </div>
+    <% end %>
     
     <nav class="<%= theme_classes('bg-white border-gray-200', 'bg-gray-800 border-gray-700') %> shadow-sm border-b">
       <div class="w-full px-6 py-7">
@@ -56,6 +79,9 @@
     <main class="py-7">
       <%= yield %>
     </main>
+    
+    <!-- Container for notifications -->
+    <div id="flash-notifications-container" class="fixed bottom-6 right-6 z-50 space-y-4 max-w-md"></div>
 
     <%# Notification settings disabled - uncomment to re-enable %>
     <%# render "shared/notification_settings" %>
