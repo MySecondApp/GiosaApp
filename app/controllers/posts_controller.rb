@@ -13,7 +13,7 @@ class PostsController < ApplicationController
     # Si es una petición de turbo_frame, solo renderizar el frame
     if turbo_frame_request? || params[:turbo_frame].present?
       render partial: "posts_list", locals: { posts: @posts }, layout: false
-      nil
+      return
     end
   end
 

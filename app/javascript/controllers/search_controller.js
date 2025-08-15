@@ -23,38 +23,23 @@ export default class extends Controller {
 
     // Crear URL con parámetros de búsqueda
     const url = new URL(this.urlValue, window.location.origin)
-    url.searchParams.set("turbo_frame", "posts_list")
     if (query) {
       url.searchParams.set("search", query)
     } else {
       url.searchParams.delete("search")
     }
+    
+    console.log(`🔍 URL: ${url.href}`)
 
-    // Usar Turbo para manejar la petición
+    // Usar Turbo.visit para navegar al URL con los filtros
+    // Esto mantendrá los Turbo Frames funcionando correctamente
     const frame = document.getElementById('posts_list')
     if (frame) {
+      console.log(`🔍 Updating turbo frame`)
       frame.src = url.href
     } else {
-      // Fallback si no hay turbo frame disponible
-      fetch(url, {
-        method: 'GET',
-        headers: {
-          "Accept": "text/html",
-          "Content-Type": "text/html"
-        }
-      })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
-        }
-        return response.text()
-      })
-      .then(html => {
-        this.resultsTarget.innerHTML = html
-      })
-      .catch(error => {
-        console.error("Error en la búsqueda:", error)
-      })
+      console.log(`🔍 No turbo frame found, using Turbo.visit`)
+      Turbo.visit(url.href, { frame: "posts_list" })
     }
   }
 
