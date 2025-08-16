@@ -65,11 +65,16 @@ module.exports = {
     'bg-gray-700/50',
     'animate-fade-in',
     'animate-scale-in',
+    'animate-pulse',
+    'animate-bounce',
     'ring-gray-300',
     'ring-gray-500',
     'hover:bg-gray-50',
     'hover:bg-gray-500',
     'focus:ring-offset-white',
-    'focus:ring-offset-gray-800'
+    'focus:ring-offset-gray-800',
+    'opacity-75',
+    'cursor-wait',
+    'bg-red-200'
   ]
 }

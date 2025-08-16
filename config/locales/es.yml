@@ -11,6 +11,7 @@ es:
       title: "Todos los Posts"
       no_posts: "No hay posts disponibles"
       create_first: "¡Crea el primer post!"
+      search_placeholder: "Buscar posts..."
     show:
       published: "Publicado"
       draft: "Borrador"

@@ -16,37 +16,8 @@ export default class extends Controller {
       this.createNotification({ message, title, type })
     }
     
-    // Register custom Turbo Stream action
-    Turbo.StreamActions.show_notification = function() {
-      console.log('🚀 Custom Turbo Stream action: show_notification triggered')
-      console.log('📋 Template content:', this.templateContent)
-      
-      const notificationData = this.templateContent.querySelector('.turbo-notification-trigger')
-      
-      if (notificationData) {
-        const message = notificationData.dataset.message
-        const title = notificationData.dataset.title
-        const type = notificationData.dataset.type
-        
-        console.log('📋 Notification data extracted:', { message, title, type })
-        
-        // Use setTimeout to ensure DOM is ready
-        setTimeout(() => {
-          if (window.showNotification && typeof window.showNotification === 'function') {
-            console.log('✅ Calling window.showNotification')
-            window.showNotification(message, title, type)
-          } else {
-            console.log('❌ window.showNotification not available, dispatching event')
-            document.dispatchEvent(new CustomEvent('notification:show', {
-              detail: { message, title, type }
-            }))
-          }
-        }, 100)
-      } else {
-        console.log('❌ No notification data found in template')
-        console.log('Template HTML:', this.templateContent.innerHTML)
-      }
-    }
+    // Register custom Turbo Stream action - with defensive programming
+    this.setupTurboStreamActions()
     
     // Look for values in child elements
     const childElement = this.element.querySelector('[data-flash-notifications-message-value]')
@@ -74,6 +45,54 @@ export default class extends Controller {
       const { message, title, type } = event.detail
       this.createNotification({ message, title, type })
     })
+  }
+
+  setupTurboStreamActions() {
+    // Wait for Turbo to be available, with defensive programming
+    const setupTurbo = () => {
+      if (typeof window.Turbo !== 'undefined' && window.Turbo.StreamActions) {
+        console.log('✅ Turbo available, registering custom stream actions')
+        
+        window.Turbo.StreamActions.show_notification = function() {
+          console.log('🚀 Custom Turbo Stream action: show_notification triggered')
+          console.log('📋 Template content:', this.templateContent)
+          
+          const notificationData = this.templateContent.querySelector('.turbo-notification-trigger')
+          
+          if (notificationData) {
+            const message = notificationData.dataset.message
+            const title = notificationData.dataset.title
+            const type = notificationData.dataset.type
+            
+            console.log('📋 Notification data extracted:', { message, title, type })
+            
+            // Use setTimeout to ensure DOM is ready
+            setTimeout(() => {
+              if (window.showNotification && typeof window.showNotification === 'function') {
+                console.log('✅ Calling window.showNotification')
+                window.showNotification(message, title, type)
+              } else {
+                console.log('❌ window.showNotification not available, dispatching event')
+                document.dispatchEvent(new CustomEvent('notification:show', {
+                  detail: { message, title, type }
+                }))
+              }
+            }, 100)
+          } else {
+            console.log('❌ No notification data found in template')
+            console.log('Template HTML:', this.templateContent.innerHTML)
+          }
+        }
+      } else {
+        console.log('⚠️ Turbo not available yet, will continue without Turbo Stream actions')
+      }
+    }
+    
+    // Try immediately
+    setupTurbo()
+    
+    // Also try after a short delay in case Turbo loads later
+    setTimeout(setupTurbo, 1000)
   }
 
   disconnect() {

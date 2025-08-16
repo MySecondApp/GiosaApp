@@ -22,9 +22,12 @@ RSpec.describe "Hotwire Elements", type: :system do
     it "displays like buttons for each post" do
       visit posts_path
 
-      expect(page).to have_css("form[action='#{like_post_path(post1)}']")
-      expect(page).to have_css("form[action='#{like_post_path(post2)}']")
-      expect(page).to have_css("form[action='#{like_post_path(post3)}']")
+      expect(page).to have_css("#post_#{post1.id}_likes button[data-like-button-target='button']")
+      expect(page).to have_css("#post_#{post2.id}_likes button[data-like-button-target='button']")
+      expect(page).to have_css("#post_#{post3.id}_likes button[data-like-button-target='button']")
+
+      # Verify Stimulus controllers are present
+      expect(page).to have_css("[data-controller='like-button']")
     end
 
     it "shows correct initial like counts" do
