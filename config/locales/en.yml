@@ -40,6 +40,7 @@ en:
       title: "All Posts"
       no_posts: "No posts available"
       create_first: "Create the first post!"
+      search_placeholder: "Search posts..."
     show:
       published: "Published"
       draft: "Draft"
@@ -94,6 +95,19 @@ en:
     description: "A blog application built with Ruby on Rails"
     recent_posts: "Recent Posts"
     view_all: "View Posts"
+    examples:
+      counter:
+        title: "Interactive Counter"
+        reset: "Reset"
+      toggle:
+        title: "Content Toggle"
+        button: "Show/Hide Content"
+        content: "This content can be shown and hidden using Stimulus!"
+        description: "Stimulus makes it very easy to add interactivity to your Rails views."
+      hello:
+        title: "Custom Greeting"
+        placeholder: "Enter your name"
+        button: "Greet"
     
   # Themes and languages
   theme:
