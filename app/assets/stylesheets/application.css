@@ -106,3 +106,27 @@
   transform: translateY(-50%);
   z-index: 10;
 }
+
+/* Spinner de búsqueda */
+.search-spinner {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  transition: right 0.2s ease;
+}
+
+/* Cuando hay botón clear, el JavaScript moverá el spinner */
+.search-spinner.with-clear-button {
+  right: 3rem;
+}
+
+/* Asegurar que el spinner esté visible sobre el input */
+.search-spinner svg {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}

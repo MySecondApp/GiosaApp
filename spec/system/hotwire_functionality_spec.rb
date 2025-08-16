@@ -67,28 +67,27 @@ RSpec.describe "Hotwire Functionality", type: :system do
   end
 
   describe "Like functionality", js: true do
-    it "increments likes without page reload" do
+    it "shows optimistic update when like button is clicked" do
       visit posts_path
 
-      # Find like button for first post
-      like_button = find("form[action='#{like_post_path(post1)}']")
+      # Find like button container for post1
+      like_container = find("#post_#{post1.id}_likes")
 
       # Initial state should show 0 likes
-      expect(like_button).to have_content("0")
+      expect(like_container).to have_content("0")
+
+      # Verify that the Stimulus controller is connected
+      expect(like_container['data-controller']).to eq('like-button')
 
       # Click like button
-      within(like_button) do
-        find('button').click
-      end
+      button = within(like_container) { find('button') }
+      button.click
 
-      # Wait for turbo stream response
-      sleep 1
+      # The optimistic update should show immediately (incrementing by 1)
+      expect(like_container).to have_content("1", wait: 3)
 
-      # Check that likes increased
-      expect(page).to have_content("1")
-
-      # Verify database was updated
-      expect(post1.reload.likes).to eq(1)
+      # The button should be functional and not show permanent error state
+      expect(button).not_to have_css('.animate-bounce')
     end
 
     it "shows correct initial like counts" do

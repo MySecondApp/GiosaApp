@@ -1,13 +1,21 @@
-<%# Botón de like con actualización en tiempo real usando Turbo Stream %>
-<div id="post_<%= post.id %>_likes" class="flex items-center space-x-2">
-  <%= button_to like_post_path(post), 
-                method: :patch,
-                remote: true,
-                class: "group flex items-center space-x-2 #{theme_classes('bg-red-50 hover:bg-red-100 text-red-600 hover:text-red-700', 'bg-red-900 hover:bg-red-800 text-red-300 hover:text-red-200')} px-3 py-2 rounded-full transition-all duration-200 transform hover:scale-105 border-0 cursor-pointer",
-                title: "Me gusta este post" do %>
-    <svg class="w-5 h-5 transition-transform duration-200 group-hover:scale-110" fill="currentColor" viewBox="0 0 20 20">
+<%# Botón de like con actualización optimista usando Stimulus %>
+<div id="post_<%= post.id %>_likes" 
+     class="flex items-center space-x-2"
+     data-controller="like-button"
+     data-like-button-post-id-value="<%= post.id %>"
+     data-like-button-current-likes-value="<%= post.likes %>"
+     data-like-button-like-url-value="<%= like_post_path(post) %>">
+  
+  <button data-like-button-target="button"
+          data-action="click->like-button#like"
+          class="group flex items-center space-x-2 <%= theme_classes('bg-red-50 hover:bg-red-100 text-red-600 hover:text-red-700', 'bg-red-900 hover:bg-red-800 text-red-300 hover:text-red-200') %> px-3 py-2 rounded-full transition-all duration-200 transform hover:scale-105 border-0 cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+          title="Me gusta este post">
+    <svg data-like-button-target="icon"
+         class="w-5 h-5 transition-transform duration-200 group-hover:scale-110" 
+         fill="currentColor" 
+         viewBox="0 0 20 20">
       <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path>
     </svg>
-    <span class="font-semibold"><%= post.likes %></span>
-  <% end %>
+    <span data-like-button-target="count" class="font-semibold"><%= post.likes %></span>
+  </button>
 </div>

@@ -72,17 +72,38 @@ class PostsController < ApplicationController
   end
 
   def like
-    @post.increment!(:likes)
+    begin
+      @post.increment!(:likes)
 
-    respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: turbo_stream.replace(
-          "post_#{@post.id}_likes",
-          partial: "posts/like_button",
-          locals: { post: @post }
-        )
+      respond_to do |format|
+        format.json do
+          render json: {
+            likes: @post.likes,
+            post_id: @post.id,
+            success: true
+          }
+        end
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace(
+            "post_#{@post.id}_likes",
+            partial: "posts/like_button",
+            locals: { post: @post }
+          )
+        end
+        format.html { redirect_back(fallback_location: posts_path) }
       end
-      format.html { redirect_back(fallback_location: posts_path) }
+    rescue => e
+      respond_to do |format|
+        format.json do
+          render json: {
+            success: false,
+            error: "No se pudo procesar el like",
+            post_id: @post.id
+          }, status: :unprocessable_entity
+        end
+        format.turbo_stream { head :unprocessable_entity }
+        format.html { redirect_back(fallback_location: posts_path, alert: "Error al dar like") }
+      end
     end
   end
 
