@@ -71,6 +71,8 @@ es:
   # Temas y idiomas
   theme:
     toggle: "Cambiar tema"
+    light: "Tema Claro"
+    dark: "Tema Oscuro"
     
   locale:
     toggle: "Cambiar idioma"

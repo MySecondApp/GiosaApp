@@ -112,6 +112,8 @@ en:
   # Themes and languages
   theme:
     toggle: "Toggle theme"
+    light: "Light Theme"
+    dark: "Dark Theme"
     
   locale:
     toggle: "Change language"
